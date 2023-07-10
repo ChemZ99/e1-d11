@@ -34,15 +34,16 @@ console.log(xarr(uarr));
 
 console.log("---------- esercizio 3");
 
-console.log(uarr.filter((numbers) => numbers % 2 === 0));
+console.log(uarr.filter(numbers => numbers % 2 === 0));
 
 /* ESERCIZIO 4 (forEach)
   Scrivi una funzione per sommare i numeri contenuti in un array
 */
 
 console.log("---------- esercizio 4");
-let tot;
-console.log();
+let tot = 0;
+uarr.forEach(number => (tot += number));
+console.log(tot);
 
 /* ESERCIZIO 5 (reduce)
   Scrivi una funzione per sommare i numeri contenuti in un array
@@ -56,7 +57,7 @@ console.log("---------- esercizio 5");
 
 console.log("---------- esercizio 6");
 let n = 100;
-console.log(uarr.map((numbers) => numbers + n));
+console.log(uarr.map(numbers => numbers + n));
 
 /* ESERCIZIO 7 (map)
   Scrivi una funzione che, dato un array di stringhe, ritorni un nuovo array contenente le lunghezze delle rispettive stringhe dell'array di partenza
@@ -65,7 +66,7 @@ console.log(uarr.map((numbers) => numbers + n));
 
 console.log("---------- esercizio 7");
 const parr = ["uihnfeiua", "iuanriunbuigdsbn", "arebuyb", "arnui", "ieabrhiyuntn"];
-console.log(parr.map((string) => string.length));
+console.log(parr.map(string => string.length));
 
 /* ESERCIZIO 8 (forEach o for)
   Scrivi una funzione per creare un array contenente tutti i valori DISPARI da 1 a 99.
@@ -194,16 +195,25 @@ const movies = [
 */
 
 console.log("---------- esercizio 9");
-const oldest = [];
-oldest.push(movies.forEach((element) => Math.min(parseInt(element.Year))));
-console.log(oldest);
-
+let index = 0;
+let tempyear = 2200;
+movies.forEach(element => {
+  if (parseInt(element.Year) < tempyear) {
+    tempyear = parseInt(element.Year);
+    index = movies.indexOf(element);
+  }
+  return index;
+});
+console.log(movies[index]);
 /* ESERCIZIO 10
   Scrivi una funzione per ottenere il numero di film contenuti nell'array fornito.
 */
 
 console.log("---------- esercizio 10");
-console.log(movies.length);
+const read = function () {
+  console.log(movies.length);
+};
+read();
 
 /* ESERCIZIO 11 (map)
   Scrivi una funzione per creare un array con solamente i titoli dei film contenuti nell'array fornito.
@@ -211,26 +221,24 @@ console.log(movies.length);
 
 console.log("---------- esercizio 11");
 const names = [];
-const extract = function (arr) {
-  names.push(arr.map((element) => element.Title));
-  return arr;
-};
-console.log(extract(names));
+movies.map(element => names.push(element.Title));
+
+console.log(names);
 
 /* ESERCIZIO 12 (filter)
   Scrivi una funzione per ottenere dall'array fornito solamente i film usciti nel millennio corrente.
 */
 
-/*
 console.log("---------- esercizio 12");
-const tarr = [];
-const post2000 = function (arr) {
-  tarr.push(arr.filter((element) => parseInt(element) >= 2000));
-  return tarr;
-};
-post2000(movies.Year);
-console.log(tarr);
-*/
+let counter = 2000;
+const oldest = [];
+movies.forEach(element => {
+  if (parseInt(element.Year) >= counter) {
+    oldest.push(element);
+  }
+  return oldest;
+});
+console.log(oldest);
 
 /* ESERCIZIO 13 (reduce)
   Scrivi una funzione per calcolare la somma di tutti gli anni in cui sono stati prodotti i film contenuti nell'array fornito.
@@ -240,6 +248,20 @@ console.log(tarr);
   Scrivi una funzione per ottenere dall'array fornito uno specifico film (la funzione riceve un imdbID come parametro).
 */
 
+console.log("---------- esercizio 14");
+let id = "tt4154756";
+let index2 = 0;
+const tracer = function (imdbid) {
+  index2 = movies.indexOf(movies.find(element => element.imdbID === imdbid));
+  return index2;
+};
+tracer(id);
+console.log(movies[index2]);
+
 /* ESERCIZIO 15 (findIndex)
   Scrivi una funzione per ottenere dall'array fornito l'indice del primo film uscito nell'anno fornito come parametro.
 */
+
+console.log("---------- esercizio 15");
+let request = 2012;
+console.log(movies.findIndex(element => parseInt(element.Year) === request));
